@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "207517734799",
+    "firebase_url": "https://document2pdf.firebaseio.com",
+    "project_id": "document2pdf",
+    "storage_bucket": "document2pdf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:207517734799:android:0d370c75cfa606d8b5ddfa",
+        "android_client_info": {
+          "package_name": "com.demo.document2pdf"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "207517734799-cqprg3ok98ff94h7mov8eftmuh1sdg6s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHl_KSvN8Dprgwm6gVgRPyVAzBd2FoD5I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "207517734799-cqprg3ok98ff94h7mov8eftmuh1sdg6s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
