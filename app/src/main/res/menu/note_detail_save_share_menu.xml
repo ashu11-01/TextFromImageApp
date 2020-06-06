@@ -6,9 +6,4 @@
     android:title="Save"
     android:icon="@drawable/ic_check_black_24dp"
     app:showAsAction="always"/>
-<item
-    android:id="@+id/note_delete_menu"
-    android:title="Delete"
-    android:icon="@drawable/ic_delete_black_24dp"
-    app:showAsAction="ifRoom"/>
 </menu>

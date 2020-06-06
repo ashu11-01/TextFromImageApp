@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.cardview.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="12dp"
-    android:elevation="4dp"
+    android:layout_marginHorizontal="2dp"
 
     android:layout_marginVertical="3dp"
-    android:layout_marginHorizontal="2dp"
-    xmlns:android="http://schemas.android.com/apk/res/android" >
+    android:background="#FFFFFF"
+    android:elevation="4dp"
+    app:cardCornerRadius="12dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="5dp">
+        android:layout_marginHorizontal="5dp"
+        android:background="#CFE5F6">
 
         <TextView
             android:id="@+id/tv_note_title"

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.demo.document2pdf.Room.NoteModel
 
 class NoteListAdapter(val context: Context?, val noteList: List<NoteModel>?) : RecyclerView.Adapter<NoteListAdapter.ViewHolder>() {
 
@@ -40,8 +41,8 @@ class NoteListAdapter(val context: Context?, val noteList: List<NoteModel>?) : R
 
         val note = noteList?.get(position)
         holder.itemView.tag = position
-        holder.tvNoteTitle.text = note?.title
-        holder.tvNoteText.text = note?.text
+        holder.tvNoteTitle.text = note?.noteTitle
+        holder.tvNoteText.text = note?.noteText
     }
 
 }

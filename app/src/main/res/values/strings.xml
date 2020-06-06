@@ -3,4 +3,8 @@
     <string name="title_activity_main">Notes from Image</string>
     <string name="note_modified_date">Last Modified:</string>
     <string name="note_title">Title</string>
+    <string name="main_instruction">Your saved notes will appear below.\nClick the + Button to Add a New Note </string>
+    <string name="no_notes_found">No Saved Notes Found.\nClick the + Button to Add a New Note </string>
+    <string name="note_updated">Note Update</string>
+    <string name="note_deleted">Note Deleted</string>
 </resources>

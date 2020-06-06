@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EditNoteActivity">
+    tools:context=".AddNoteActivity">
 
     <EditText
-        android:id="@+id/et_text_input_saved"
+        android:id="@+id/et_text_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
@@ -15,6 +15,8 @@
         android:layout_marginEnd="5dp"
         android:ems="10"
         android:gravity="start|top"
+        android:scrollbars="vertical"
+        android:fadeScrollbars="false"
         android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +33,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_title_input_saved"
+            android:id="@+id/et_title_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

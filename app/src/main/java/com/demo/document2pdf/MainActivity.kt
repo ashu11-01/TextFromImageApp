@@ -5,20 +5,25 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.demo.document2pdf.Room.NoteModel
+import com.demo.document2pdf.Room.NotesDatabase
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
 import com.google.firebase.ml.vision.text.FirebaseVisionText
 import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer
+import kotlinx.coroutines.InternalCoroutinesApi
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -30,22 +35,28 @@ class MainActivity : AppCompatActivity(),NoteListAdapter.ItemClicked {
     private lateinit var currentPhotoPath: String
     lateinit var notesRecycler : RecyclerView
     private val IMAGE_CAPTURE_REQUEST: Int = 11
+    private lateinit var notesList : List<NoteModel>
+
+    lateinit var db : NotesDatabase
+    @InternalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        initviews()
+        db = NotesDatabase.getDatabase(applicationContext)
+
         findViewById<FloatingActionButton>(R.id.floatingActionButton).setOnClickListener {
             openCamera(it)
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        val asyncTask : FetchNotesAsyncTask = FetchNotesAsyncTask()
+        asyncTask.execute()
+    }
     private fun initviews() {
         notesRecycler = findViewById(R.id.notes_recycler)
         notesRecycler.layoutManager = LinearLayoutManager(this,RecyclerView.VERTICAL,false);
-        val n1 = NoteModel("N1","Notes1",Date(2020,2,1))
-        val n2 = NoteModel("N2","Notes2",Date(2020,3,2))
-        val noteList : List<NoteModel> = listOf(n1,n2)
-        notesRecycler.adapter = NoteListAdapter(this,noteList)
     }
 
     private fun openCamera(it: View?) {
@@ -96,7 +107,7 @@ class MainActivity : AppCompatActivity(),NoteListAdapter.ItemClicked {
     }
 
     private fun processRecognizedText(recognizedText : FirebaseVisionText) {
-        var resultText : String? = null
+        var resultText : String? = ""
         if(recognizedText.textBlocks.size==0){
             resultText =null
             return
@@ -106,16 +117,52 @@ class MainActivity : AppCompatActivity(),NoteListAdapter.ItemClicked {
         }
 //        tvText.text = resultText
 
-        goToEditNoteScreen(resultText)
+        goToAddNewNoteScreen(resultText)
     }
 
-    private fun goToEditNoteScreen(resultText : String?) {
-        val intent = Intent(this,EditNoteActivity::class.java)
+    private fun goToAddNewNoteScreen(resultText : String?) {
+        val intent = Intent(this,AddNoteActivity::class.java)
         intent.putExtra("noteText",resultText)
         startActivity(intent)
     }
+
     override fun onItemClicked(position: Int) {
-        Toast.makeText(this,"clicked"+position,Toast.LENGTH_SHORT).show()
+        goToEditNoteScreen(notesList.get(position).id,notesList.get(position).noteTitle,notesList.get(position).noteText)
+    }
+
+    private fun goToEditNoteScreen(noteId: Int, noteTitle : String, noteText: String) {
+        val intent = Intent(this,EditNoteActivity::class.java)
+        intent.putExtra("noteId",noteId)
+        intent.putExtra("noteTitle",noteTitle)
+        intent.putExtra("noteText",noteText)
+        startActivity(intent)
+    }
+
+    private inner class FetchNotesAsyncTask() : AsyncTask<Unit,Unit,List<NoteModel>>() {
+
+        override fun onPreExecute() {
+            super.onPreExecute()
+        }
+
+        @InternalCoroutinesApi
+        override fun doInBackground(vararg p0: Unit?): List<NoteModel> {
+            return db.notesDao().getMostRecentModifiedNote()
+        }
+
+        override fun onPostExecute(result: List<NoteModel>?) {
+            super.onPostExecute(result)
+            if(result==null || result.size==0){
+                findViewById<TextView>(R.id.tv_heading).setText(getString(R.string.no_notes_found))
+            }
+            else{
+                notesList = result
+                initviews()
+                notesRecycler.adapter = NoteListAdapter(this@MainActivity,result)
+            }
+        }
+
     }
 }
+
+
 
