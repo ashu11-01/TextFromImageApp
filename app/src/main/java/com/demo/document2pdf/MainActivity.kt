@@ -215,6 +215,7 @@ class MainActivity : AppCompatActivity(),NoteListAdapter.ItemClicked {
                 findViewById<TextView>(R.id.tv_heading).setText(getString(R.string.no_notes_found))
             }
             else{
+                findViewById<TextView>(R.id.tv_heading).setText(getString(R.string.main_instruction))
                 notesList = result
                 initviews()
                 notesRecycler.adapter = NoteListAdapter(this@MainActivity,result)
