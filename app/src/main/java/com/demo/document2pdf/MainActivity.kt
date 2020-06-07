@@ -1,6 +1,7 @@
 package com.demo.document2pdf
 
 import android.app.Activity
+import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -36,7 +37,7 @@ class MainActivity : AppCompatActivity(),NoteListAdapter.ItemClicked {
     lateinit var notesRecycler : RecyclerView
     private val IMAGE_CAPTURE_REQUEST: Int = 11
     private lateinit var notesList : List<NoteModel>
-
+    private lateinit var progressDialog : ProgressDialog
     lateinit var db : NotesDatabase
     @InternalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -97,6 +98,10 @@ class MainActivity : AppCompatActivity(),NoteListAdapter.ItemClicked {
     }
 
     private fun runTextRecognition(bitmap : Bitmap){
+        progressDialog = ProgressDialog(this)
+        progressDialog.setTitle("Please wait...")
+        progressDialog.setMessage("Text Recognition in Progress")
+        progressDialog.show()
         val image : FirebaseVisionImage = FirebaseVisionImage.fromBitmap(bitmap)
         val detector: FirebaseVisionTextRecognizer = FirebaseVision.getInstance().onDeviceTextRecognizer
         detector.processImage(image).addOnSuccessListener{firebaseVisionText ->
@@ -115,6 +120,7 @@ class MainActivity : AppCompatActivity(),NoteListAdapter.ItemClicked {
         for(block in recognizedText.textBlocks){
             resultText = resultText + block.text +"\n"
         }
+        progressDialog.dismiss()
 //        tvText.text = resultText
 
         goToAddNewNoteScreen(resultText)
