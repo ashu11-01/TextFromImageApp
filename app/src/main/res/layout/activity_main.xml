@@ -22,20 +22,20 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton4"
+        android:id="@+id/fab_gallery"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="8dp"
         android:clickable="true"
         android:focusable="true"
         app:backgroundTint="#BED0DD"
         app:fabSize="mini"
-        app:layout_constraintBottom_toTopOf="@+id/floatingActionButton2"
-        app:layout_constraintEnd_toEndOf="@+id/floatingActionButton2"
+        app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"
+        app:layout_constraintEnd_toEndOf="@+id/fab_write_new"
         app:srcCompat="@drawable/ic_photo_black_24dp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton3"
+        android:id="@+id/fab_add_new"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
@@ -44,31 +44,33 @@
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_add_white_24dp" />
+        app:srcCompat="@drawable/ic_add_white_24dp"
+        android:focusable="true" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton2"
+        android:id="@+id/fab_write_new"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="8dp"
         android:clickable="true"
         app:backgroundTint="#BED0DD"
         app:fabSize="mini"
-        app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"
+        app:layout_constraintBottom_toTopOf="@+id/fab_gallery"
         app:layout_constraintEnd_toEndOf="@+id/floatingActionButton"
-        app:srcCompat="@drawable/ic_create_black_24dp" />
+        app:srcCompat="@drawable/ic_create_black_24dp"
+        android:focusable="true" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="8dp"
         android:clickable="true"
         android:focusable="true"
         app:backgroundTint="#BED0DD"
         app:fabSize="mini"
-        app:layout_constraintBottom_toTopOf="@+id/floatingActionButton3"
+        app:layout_constraintBottom_toTopOf="@+id/fab_add_new"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_camera_alt_blue_24dp" />
 

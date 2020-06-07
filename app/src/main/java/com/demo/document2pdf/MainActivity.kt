@@ -36,18 +36,60 @@ class MainActivity : AppCompatActivity(),NoteListAdapter.ItemClicked {
     private lateinit var currentPhotoPath: String
     lateinit var notesRecycler : RecyclerView
     private val IMAGE_CAPTURE_REQUEST: Int = 11
+    private val CHOOSE_IMAGE_FROM_GALLERY: Int =  12
     private lateinit var notesList : List<NoteModel>
     private lateinit var progressDialog : ProgressDialog
+    private lateinit var fabAddNew: FloatingActionButton
+    private lateinit var fabWrite: FloatingActionButton
+    private lateinit var fabGallery: FloatingActionButton
+    private lateinit var fabCamera: FloatingActionButton
+    private var isFabVisible : Boolean = false
     lateinit var db : NotesDatabase
     @InternalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         db = NotesDatabase.getDatabase(applicationContext)
 
-        findViewById<FloatingActionButton>(R.id.floatingActionButton).setOnClickListener {
+        fabCamera = findViewById(R.id.floatingActionButton)
+        fabGallery = findViewById(R.id.fab_gallery)
+        fabWrite = findViewById(R.id.fab_write_new)
+
+        fabCamera.setOnClickListener {
             openCamera(it)
         }
+        fabGallery.setOnClickListener{
+            openGallery(it)
+        }
+        fabWrite.setOnClickListener{
+            goToAddNewNoteScreen("")
+        }
+
+        fabAddNew = findViewById(R.id.fab_add_new)
+        fabAddNew.setOnClickListener{
+            showHideFab()
+        }
+    }
+
+    fun showHideFab(){
+        if(isFabVisible) {
+            fabCamera.visibility = View.GONE
+            fabGallery.visibility = View.GONE
+            fabWrite.visibility = View.GONE
+            isFabVisible = false
+        }
+        else{
+            fabCamera.visibility = View.VISIBLE
+            fabGallery.visibility = View.VISIBLE
+            fabWrite.visibility = View.VISIBLE
+            isFabVisible = true
+        }
+    }
+    private fun openGallery(it: View?) {
+        val intent = Intent(Intent.ACTION_GET_CONTENT)
+        intent.type = "image/*"
+        startActivityForResult(intent,CHOOSE_IMAGE_FROM_GALLERY)
     }
 
     override fun onResume() {
@@ -80,14 +122,26 @@ class MainActivity : AppCompatActivity(),NoteListAdapter.ItemClicked {
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
             super.onActivityResult(requestCode, resultCode, data)
+            var bitmap : Bitmap? = null
             if (requestCode == IMAGE_CAPTURE_REQUEST && resultCode == Activity.RESULT_OK) {
-                val bitmap : Bitmap = BitmapFactory.decodeFile(currentPhotoPath)
-//                findViewById<ImageView>(R.id.).setImageBitmap(bitmap)
-                try{
+                bitmap = BitmapFactory.decodeFile(currentPhotoPath)
+            }
+
+            else if (requestCode == CHOOSE_IMAGE_FROM_GALLERY && resultCode == Activity.RESULT_OK){
+                bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver,
+                    data?.data
+                );
+            }
+            try{
+                if (bitmap != null)
+                {
                     runTextRecognition(bitmap)
-                }catch (ex: IllegalStateException){
-                    Toast.makeText(this,"Could not recognize text from image",Toast.LENGTH_SHORT).show()
                 }
+                else{
+                    Toast.makeText(this,getString(R.string.bitmap_null_msg),Toast.LENGTH_SHORT).show()
+                }
+            }catch (ex: IllegalStateException){
+                Toast.makeText(this,getString(R.string.no_text_in_image_msg),Toast.LENGTH_SHORT).show()
             }
         }
     @Throws(IOException::class)

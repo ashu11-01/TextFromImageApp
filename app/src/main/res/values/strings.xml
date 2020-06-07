@@ -7,4 +7,6 @@
     <string name="no_notes_found">No Saved Notes Found.\nClick the + Button to Add a New Note </string>
     <string name="note_updated">Note Update</string>
     <string name="note_deleted">Note Deleted</string>
+    <string name="bitmap_null_msg">Something went wrong</string>
+    <string name="no_text_in_image_msg">Could not recognize text from image</string>
 </resources>
