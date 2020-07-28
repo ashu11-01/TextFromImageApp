@@ -22,17 +22,61 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_gallery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone"
+        app:backgroundTint="#BED0DD"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"
+        app:layout_constraintEnd_toEndOf="@+id/fab_write_new"
+        app:rippleColor="#FFFFFF"
+        app:srcCompat="@drawable/ic_photo_black_24dp" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_add_new"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_add_white_24dp"
+        android:focusable="true" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_write_new"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone"
+        app:backgroundTint="#BED0DD"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toTopOf="@+id/fab_gallery"
+        app:layout_constraintEnd_toEndOf="@+id/floatingActionButton"
+        app:srcCompat="@drawable/ic_create_black_24dp" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="8dp"
         android:clickable="true"
-        app:fabSize="auto"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:focusable="true"
+        android:visibility="gone"
+        app:backgroundTint="#BED0DD"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toTopOf="@+id/fab_add_new"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_camera_alt_blue_24dp"
-        android:focusable="true" />
+        app:srcCompat="@drawable/ic_camera_alt_blue_24dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/notes_recycler"

@@ -33,7 +33,7 @@ class EditNoteActivity : AppCompatActivity() {
         etNoteText = findViewById(R.id.et_text_input)
         etNoteText.setText(noteText)
         etNoteTitle = findViewById(R.id.et_title_input)
-        etNoteTitle.setHint(R.string.note_title)
+        etNoteTitle.setText(noteTitle)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
